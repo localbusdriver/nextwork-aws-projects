@@ -31,3 +31,49 @@ For example, **10.0.0.0/16**.
 **10.0.0.0/16** means the first 16 bits of the IP address (10.0) are fixed but the remaining 16 bits (the last half of the ip address) can be allocated however you like. This means IP addresses within the CIDR block range from *10.0.0.0* to *10.0.255.255*!  
 *There are 2^16 (65,536) possible IP addresses within this subnet.*  
 
+
+
+### Create Subnets
+Subnets are subdivisions within your VPC where you can launch AWS resources.  
+
+Upon opening the subnets tab, there were already subnets available. The default VPC provided by AWS comes with predefined subnets in each **Availability Zone** of a Region, which means that all fresh AWS accounts will have 3 subnets if the region of these fresh AWS accounts have 3 Availability Zones.  
+
+## What are Availability Zones and how do they affect my VPC?
+Each AWS Region isn't powered by one single data center, by actually a cluster of data centers around the Region. These clusters are Availability Zones.  
+
+When you create a subnet within your VPC, you'll assign it to one particular Availability Zone rather than the whole region. By spreading resources across multiple Availability Zones within the same region, you're basically creating backup options. If one AZ face issues, others are able to keep your application running.  
+
+## Configuration
+After creating a new subnet, I set the configuration to the following:
+- **VPC ID**: Nextwork VPC
+- **Subnet Name**: Public 1
+- **Availability Zone**: Asia Pacific (Sydney) / ap-southeast-2a
+- **IPv4 VPC CIDR Block**: *10.0.0.0/16*
+- **IPv4 subnet CIDR Block**: *10.0.0.0/24*
+
+  # What is the difference between a public and private subnet?
+  A public subnet is connected through an internet gateway, which resources inside a public subnet can communicate with external networks. In contrast, a private subnet does not have direct internet access and is used for internal resources that don't need to be publicly accessible. This seperation helps you design a secure and efficient network architecture, keeping sensitive resources isolated from the public.
+
+# Configuration Overview
+1. The VPC has a CIDR block of 10.0.0.0/16 meaning 65,536 IP addresses are available to allocate to resources within my AWS account, ranging from 10.0.0.0 to 10.0.255.255.
+2. Within the VPC, I have created a subnet that has been given a CIDR block of 10.0.0.0/24, meaning there are 256 IP addresses (10.0.0.0 - 10.0.0.255) reserved for resources to be allocated to.
+3. Any EC2 instance that gets launched within the subnet will be given one of those 256 IP addresses.
+
+## Enabling Auto-Assign public IPv4 address for Public 1
+When you enable auto-assign public IPv4 address for a subnet, any EC2 instance launched in that subnet will automatically receive a public IP address. This makes the instance accessible from the internet without manually assigning a public IP.  
+
+Without the auto-assign public IP address feature, any EC2 instance within the subnet would only have a private IP address. The private IP allows the instance to communicate within the AWS network, but won't be directly accessible from the internet.  
+
+
+### Creating an Internet Gateway
+An internet gateway is an access point to the broader internet. It allows data from the internet to enter and exit, facilitating communication between the inside of the VPC and the internet.  
+
+This is crucial for applications that require internet connectivity, like web servers hosting web applications.  
+
+Upon opening the *Internet Gateways* tab, there was already an existing internet gateway. Why was this there? This default internet gateway lets you launch instances and have internet connectivity immediately, which allows beginners to explore and use AWS services without needing to configure their own internet gateways from scratch.  
+
+After creating a new Internet Gateway, I attached it to my VPC.  
+
+By attaching an Internet Gateway to a VPC, the resources within my VPC can now access the internet. The EC2 instances with public IP addresses also become accessible to users, so any applications hosted on those servers become public too.  
+
+
