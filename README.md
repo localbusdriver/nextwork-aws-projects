@@ -17,8 +17,8 @@ Through structured courses and practical exercises, it offers a comprehensive ap
 This repository will be updated with various projects and exercises completed during my AWS learning journey. Each project will be in its own directory with a dedicated README explaining the project's purpose, architecture, and key learnings.
 
 ## Resources
-- [NextWork](https://learn.nextwork.org) - https://learn.nextwork.org
-- [AWS Documentation](https://docs.aws.amazon.com/) - https://docs.aws.amazon.com/
+- [NextWork](https://learn.nextwork.org)
+- [AWS Documentation](https://docs.aws.amazon.com/)
 
 ## Progress Tracking
 I will regularly update this README to reflect my progress, including:  
@@ -31,6 +31,6 @@ I will regularly update this README to reflect my progress, including:
 ## Contact
 Feel free to reach out if you have any questions about my learning journey or want to connect with a fellow AWS enthusiast!  
 
-> James La
-> jamesla200210@gmail.com
+> James La  
+> jamesla200210@gmail.com  
 > [Linkedin](https://www.linkedin.com/in/lajames)
