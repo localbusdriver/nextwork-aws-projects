@@ -130,7 +130,10 @@ You would create an alias to make it easier to remember (instead of using your a
 For this step, I created an alias with the name: *nextwork-alias-jamesla*
 
 
-## Creating IAM Users and User Groups (Step 4)
+## Creating IAM Users and User Groups
+
+## What is an IAM user?
+IAM users are users or services that are able to interact with AWS resources
 
 ### What is an IAM user group?
 An IAM user group is a collection/folder of IAM users. It allows us to manage permissions for all the users in your group at the same time by attaching policies to the group rather than individual users.  
@@ -138,4 +141,33 @@ An IAM user group is a collection/folder of IAM users. It allows us to manage pe
 For this step, I created a new User Group and configured it with the following details:
 - Name: **nextwork-dev-group**
 - Attach permission policies: **NextWorkDevEnvironmentPolicy**
+
+Then, I created a new User:
+- User name: **nextwork-dev-james**
+- Provide user access to Management Console: True
+
+Providing user access to Management Console gives the user access to AWS services through the Console.  
+
+Next, I added this user to the User group. 
+
+
+## Testing the User's access
+Here, I tested the user's access by opening the Console sign-in URL in an incognito browser and logging in.  
+
+Upon entering the Console, I noticed that many dashboard panels were showing *Access Denied*!  
+I tried stopping both the deployed EC2 instances and I received an error for the production instance and received a "successful" banner for the development instance.
+
+### IAM Policy Simulator
+Manually testing a policy by shutting down an instance is not an effective way to test our policies. For this reason there is an IAM Policy Simulator. This lets you test and validate policies without affecting out actual AWS resources.  
+
+Once I opened the IAM Policy Simulator, I selected the group I had created(*nextwork-dev-group*), selected the EC2 service, and selected the **DeleteTags** and **StopInstances** actions.  
+
+When running this, both tests resulted in "**denied**".  
+
+**Why does *StopInstances* say "denied"?** - The dev user could stop the dev instance in their EC2 Console, so why does it say denied?  
+The action was denied because the simulation resource is "*", which means all resources.  
+
+I tried running the simulation again, but this time, in the Instance field, I added *development* to indicated that I want to run the simulation for the instances with that tag.  
+
+Now the simulator tells me that access is granted!   
 
