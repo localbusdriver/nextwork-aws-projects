@@ -55,6 +55,8 @@ The parameters are as follows:
 * **destination**: 0.0.0.0/0
 * **target**: igw - NextWork IG
 
+Routes are defined by their destination and target. The destination is the final destination of the route and the target is where the packet should go next to get one step closer to the destination.
+
 > Why is the *destination* 0.0.0.0/0?
 >> 0.0.0.0/0 means all IPv4 addresses! This is creating a default route that sends any traffic that doesn't match more specific routes on your route table.
 >>Since the the only other route has a destination of 10.0.0.0/16, this means all traffic that is not bound for another resource within the VPC is bound for the internet gateway!
